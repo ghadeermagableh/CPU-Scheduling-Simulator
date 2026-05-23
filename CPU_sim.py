@@ -9,9 +9,6 @@ Tie-breaking: SJF -> smallest BT, then AT, then PID
 from collections import deque
 
 
-# ─────────────────────────────────────────────────────────────
-#  Data helpers
-# ─────────────────────────────────────────────────────────────
 
 def make_process(pid, at, bt, priority):
     return {"pid": pid, "at": at, "bt": bt, "priority": priority}
@@ -23,9 +20,6 @@ def compute_metrics(pid, at, bt, ct, first_start):
     return {"pid": pid, "at": at, "bt": bt, "CT": ct, "TAT": tat, "WT": wt, "RT": rt}
 
 
-# ─────────────────────────────────────────────────────────────
-#  Output helpers
-# ─────────────────────────────────────────────────────────────
 
 def print_gantt(timeline):
     print("\nGantt Chart:")
@@ -48,9 +42,6 @@ def print_averages(metrics):
     print(f"\nAverages  →  WT: {avg_wt:.2f}  |  TAT: {avg_tat:.2f}  |  RT: {avg_rt:.2f}")
 
 
-# ─────────────────────────────────────────────────────────────
-#  FCFS
-# ─────────────────────────────────────────────────────────────
 
 def fcfs(processes):
     procs = sorted(processes, key=lambda p: (p["at"], p["pid"]))
@@ -67,10 +58,6 @@ def fcfs(processes):
 
     return timeline, metrics
 
-
-# ─────────────────────────────────────────────────────────────
-#  SJF non-preemptive
-# ─────────────────────────────────────────────────────────────
 
 def sjf(processes):
     remaining = sorted(processes, key=lambda p: p["at"])
@@ -95,9 +82,6 @@ def sjf(processes):
     return timeline, metrics
 
 
-# ─────────────────────────────────────────────────────────────
-#  Priority non-preemptive
-# ─────────────────────────────────────────────────────────────
 
 def priority_scheduling(processes):
     remaining = sorted(processes, key=lambda p: p["at"])
@@ -122,9 +106,6 @@ def priority_scheduling(processes):
     return timeline, metrics
 
 
-# ─────────────────────────────────────────────────────────────
-#  Round Robin preemptive
-# ─────────────────────────────────────────────────────────────
 
 def round_robin(processes, quantum=2):
     procs = sorted(processes, key=lambda p: (p["at"], p["pid"]))
@@ -184,9 +165,6 @@ def round_robin(processes, quantum=2):
     return timeline, metrics
 
 
-# ─────────────────────────────────────────────────────────────
-#  Run one dataset through all algorithms
-# ─────────────────────────────────────────────────────────────
 
 def run_dataset(name, processes, quantum=2):
     algos = [
@@ -210,9 +188,6 @@ def run_dataset(name, processes, quantum=2):
         print_averages(metrics)
 
 
-# ─────────────────────────────────────────────────────────────
-#  Main
-# ─────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
     dataset_A = [
